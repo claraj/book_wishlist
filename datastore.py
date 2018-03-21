@@ -44,7 +44,7 @@ def shutdown():
     try:
         os.mkdir(DATA_DIR)
     except FileExistsError:
-        pass # Ignore - if directory exists, don't need to do anything. 
+        pass # Ignore - if directory exists, don't need to do anything.
 
     with open(BOOKS_FILE_NAME, 'w') as f:
         f.write(output_data)
@@ -105,9 +105,10 @@ def make_book_list(string_from_file):
     books_str = string_from_file.split('\n')
 
     for book_str in books_str:
-        data = book_str.split(separator)
-        book = Book(data[0], data[1], data[2] == 'True', int(data[3]))
-        book_list.append(book)
+        if book_str:
+            data = book_str.split(separator)
+            book = Book(data[0], data[1], data[2] == 'True', int(data[3]))
+            book_list.append(book)
 
 
 def make_output_data():
