@@ -6,20 +6,8 @@ from book import Book
 
 def handle_choice(choice):
 
-    if choice == '1':
-        show_unread()
-
-    elif choice == '2':
-        show_read()
-
-    elif choice == '3':
-        book_read()
-
-    elif choice == '4':
-        new_book()
-
-    elif choice == 'q':
-        quit()
+    if choice in menu_functions:
+        menu_functions[choice]()   # Invoke function from dictionary
 
     else:
         ui.message('Please enter a valid selection')
@@ -37,7 +25,7 @@ def show_read():
     ui.show_list(read)
 
 
-def book_read():
+def mark_book_read():
     ''' Get choice from user, edit datastore, display success/error'''
     book_id = ui.ask_for_book_id()
     if datastore.set_read(book_id, True):
@@ -69,6 +57,16 @@ def main():
     while choice != quit:
         choice = ui.display_menu_get_choice()
         handle_choice(choice)
+
+
+# Menu options, and function name to run in response to that selection. 
+menu_functions = {
+    '1': show_unread,
+    '2': show_read,
+    '3': mark_book_read,
+    '4': new_book,
+    'q': quit
+}
 
 
 if __name__ == '__main__':
