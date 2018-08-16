@@ -5,6 +5,7 @@ from book import Book
 
 
 def handle_choice(choice):
+    """ Call appropriate function to respond to user's choice, or error message if choice is invalid """
 
     if choice in menu_functions:
         menu_functions[choice]()   # Invoke function from dictionary
@@ -13,20 +14,26 @@ def handle_choice(choice):
         ui.message('Please enter a valid selection')
 
 
+# These three functions seem a little redundant, but makes it easier to store
+# a function name in a dictionary
+
 def show_unread():
-    """ Fetch and show all unread books """
-    unread = datastore.get_books(read=False)
-    ui.show_list(unread)
+    show_books(False)
 
 
 def show_read():
-    """ Fetch and show all read books """
-    read = datastore.get_books(read=True)
-    ui.show_list(read)
+    show_books(True)
+
+
+def show_books(read=None):
+    """ Fetch and show books from datastore. Default is to show all books. Use read argument to specify only read books or only unread books. """
+    books = datastore.get_books(read=read)
+    ui.show_list(books)
 
 
 def mark_book_read():
     """ Get choice from user, edit datastore, display success/error """
+
     book_id = ui.ask_for_book_id()
     if datastore.set_read(book_id, True):
         ui.message('Successfully updated')
@@ -36,6 +43,7 @@ def mark_book_read():
 
 def new_book():
     """ Get info from user, add new book """
+
     new_book = ui.get_new_book_info()
     datastore.add_book(new_book)
     ui.message('Book added: ' + str(new_book))
@@ -43,6 +51,7 @@ def new_book():
 
 def quit():
     """ Perform shutdown tasks """
+
     datastore.shutdown()
     ui.message('Bye!')
 

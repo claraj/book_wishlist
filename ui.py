@@ -2,7 +2,6 @@ from book import Book
 
 
 def display_menu_get_choice():
-
     """ Display choices for user, return users' selection """
 
     print('''
@@ -14,7 +13,6 @@ def display_menu_get_choice():
     ''')
 
     choice = input('Enter your selection: ')
-
     return choice
 
 
@@ -32,7 +30,6 @@ def show_list(books):
 
 
 def ask_for_book_id():
-
     """ Ask user for book id, validate to ensure it is a positive integer """
 
     while True:
@@ -47,7 +44,6 @@ def ask_for_book_id():
 
 
 def get_new_book_info():
-
     """ Get title and author of new book from user """
 
     title = input('Enter title: ')
@@ -57,4 +53,5 @@ def get_new_book_info():
 
 def message(msg):
     """ Display a message to the user """
+    
     print(msg)

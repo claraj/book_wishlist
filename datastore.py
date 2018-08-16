@@ -54,7 +54,8 @@ def shutdown():
 
 
 def get_books(**kwargs):
-    """ Return books from data store. With no arguments, returns all Books. """
+    """ Return books from data store. With no arguments, returns all Books.
+    Uses kwargs for potential future expansion for other types of searching. """
 
     global book_list
 
@@ -64,7 +65,6 @@ def get_books(**kwargs):
     if 'read' in kwargs:
         read_books = [ book for book in book_list if book.read == kwargs['read'] ]
         return read_books
-
 
 
 def add_book(book):
@@ -77,6 +77,7 @@ def add_book(book):
 
 
 def generate_id():
+    """ create a new, unique counter value """
     global counter
     counter += 1
     return counter
@@ -99,7 +100,7 @@ def set_read(book_id, read):
 
 
 def make_book_list(string_from_file):
-    """ turn the string from the file into a list of Book objects """
+    """ Turn the string from the file into a list of Book objects """
 
     global book_list
 
@@ -113,7 +114,7 @@ def make_book_list(string_from_file):
 
 
 def make_output_data():
-    """ create a string containing all data on books, for writing to output file """
+    """ Create a string containing all data on books, for writing to output file """
 
     global book_list
 
@@ -124,6 +125,7 @@ def make_output_data():
         output_str = separator.join(output)
         output_data.append(output_str)
 
+    # Join all book strings into one big string, separated by newlines
     all_books_string = '\n'.join(output_data)
 
     return all_books_string
